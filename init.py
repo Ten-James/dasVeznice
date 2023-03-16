@@ -1,5 +1,7 @@
 from flask import Flask, request
 import json
+import routes.vezen.get
+import routes.veznice.get
 from db import mydb
 
 app = Flask(__name__)
@@ -10,29 +12,26 @@ def hello_world():
 
 @app.route("/vezen")
 def vezen():
-    cursor = mydb.cursor()
-    cursor.execute("SELECT * FROM Recidivista")
-    result = cursor.fetchall()
-    return json.dumps(result);
+    return routes.vezen.get.all()
 
 @app.route("/vezen/<id>")
 def vezenById(id):
-    return '';
+    return routes.vezen.get.byId(id)
 
 @app.post('/vezen/<id>')
 def updateVezen(id):
     print(request.form)
-    return '';
+    return ''
 
 @app.route("/veznice")
 def veznice():
-    return '';
+    return routes.veznice.get.all()
 
 @app.route("/veznice/<id>")
 def vezniceById(id):
-    return '';
+    return routes.veznice.get.byId(id)
 
 @app.post('/veznice/<id>')
 def updateVeznice(id):
     print(request.form)
-    return '';
+    return ''
